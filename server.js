@@ -1,22 +1,21 @@
 var express = require('express');
 var app = express();
-var fs = require('fs');
-var path = require('path');
-var rfs = require('rotating-file-stream');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+
+var routes = require('./routes');
 var conf = require('./conf');
 
 
 conf.MONGOOSE(mongoose);
 
 
-conf.MW(app, morgan, path, fs, rfs, cors);
+conf.MW(app, morgan, bodyParser, cors);
 
 
-conf.ROUTES(app);
+conf.ROUTES(app, routes);
 
 
 app.listen(conf.PORT, conf.IP);
